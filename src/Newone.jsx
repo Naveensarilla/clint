@@ -4,6 +4,15 @@ import axios from 'axios'
 
 export const Newone = () => {
 
+    const [value, setValues] = useState({
+        userName: '',
+        dateOfBirth: '',
+    });
+    const setting = (e)=>{
+        setValues(e.target.files)
+    }
+
+
     const [file,setFile] = useState("");
     const setimgfile = (e)=>{
         setFile(e.target.files[0])
@@ -18,15 +27,20 @@ export const Newone = () => {
         //         "Content-Type":"multipart/form-data"
         //     }
         // }
-         axios.post('http://localhost:501/upload', formData, {
+         axios.post('http://localhost:501/upload', formData,value, {
             method: 'POST',
             body: formData,
 
         }).catch(res => {console.log(file)})
         .catch(error => {console.log(`Error ${error}`)})
       
-
     }
+
+
+
+
+
+    
   return (
     <div>
         <form onSubmit={onSubmit} encType='multipart/form-data'>
@@ -34,10 +48,15 @@ export const Newone = () => {
                 <input id="fileInput" type="file" name="Files"    onChange={setimgfile}/>
                 {/* <label for="fileInput" id="fileInputLabel">Select Files</label> */}
             </div>
+
+                <input type="text" name='userName'  onChange={setting} />
+                <input type="date" name='dateOfBirth' className='inputss'  onChange={setting}/>
+
+            
             <button id="myButton" type="submit">Submit</button>
         </form> 
 
-        <img src="https://drive.google.com/uc?export=view&id=1FmI2WRr3zQTz4Nj3e_OfIH8cgFhDa-W1" width={200} alt="" />
+        <img src="https://drive.google.com/uc?export=view&id=1WFTRKYMWf-IggC6LBMLDPZVaUSGltZov" width={200} alt="" />
     </div>
   )
 }
